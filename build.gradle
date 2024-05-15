@@ -34,8 +34,8 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 	developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
 	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
-	runtimeOnly "mysql:mysql-connector-java:${mySqlConnectorVersion}"
 
 	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"

@@ -2,10 +2,10 @@ server:
   port: 8081
 
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/powerup
-    username: root
-    password: 1234
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:admin@clusterplazoleta.rukloiu.mongodb.net/?retryWrites=true&w=majority&appName=ClusterPlazoleta
+
 
   jpa:
     hibernate:
