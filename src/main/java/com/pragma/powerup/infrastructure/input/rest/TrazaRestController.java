@@ -1,7 +1,6 @@
 package com.pragma.powerup.infrastructure.input.rest;
 
 import com.pragma.powerup.application.dto.request.CrearTrazaRequestDto;
-import com.pragma.powerup.application.dto.request.ObjectRequestDto;
 import com.pragma.powerup.application.dto.response.CrearTrazaResponseDto;
 import com.pragma.powerup.application.handler.ITrazaHandler;
 import io.swagger.v3.oas.annotations.Operation;

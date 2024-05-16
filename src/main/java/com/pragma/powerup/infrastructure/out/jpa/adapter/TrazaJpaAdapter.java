@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @RequiredArgsConstructor
 public class TrazaJpaAdapter implements ITrazaPersistencePort {
@@ -19,8 +20,10 @@ public class TrazaJpaAdapter implements ITrazaPersistencePort {
 
     @Override
     public Traza crear(CrearTrazaRequestDto requestDto) {
+        Random random = new Random();
 
         TrazaEntity nuevaTraza = new TrazaEntity();
+        nuevaTraza.setId(random.nextInt());
         nuevaTraza.setIdPedido(requestDto.getIdPepido());
         nuevaTraza.setIdCliente(requestDto.getIdCliente());
         nuevaTraza.setIdEmpleado(requestDto.getIdEmpleado());
@@ -41,7 +44,11 @@ public class TrazaJpaAdapter implements ITrazaPersistencePort {
             }
         }
 
-        nuevaTraza.setEstadoAnterior(objetoMasReciente.getEstadoAnterior() != null ? objetoMasReciente.getEstadoAnterior() : "");
+        if(objetoMasReciente != null){
+            nuevaTraza.setEstadoAnterior(objetoMasReciente.getEstadoNuevo());
+        }else{
+            nuevaTraza.setEstadoAnterior("");
+        }
 
         TrazaEntity response = trazabilidadRepository.save(nuevaTraza);
 
