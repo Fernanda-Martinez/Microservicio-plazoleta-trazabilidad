@@ -6,9 +6,10 @@ import lombok.Data;
 public class CrearTrazaResponseDto {
     int id;
     int idEmpleado;
-    int idPeido;
+    int idPedido;
     String idCliente;
     String correoCliente;
     String correoEmpleado;
-    String nuevoEstado;
+    String estadoNuevo;
+    String estadoAnterior;
 }

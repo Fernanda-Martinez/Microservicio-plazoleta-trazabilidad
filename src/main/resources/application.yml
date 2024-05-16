@@ -4,12 +4,8 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://admin:admin@clusterplazoleta.rukloiu.mongodb.net/?retryWrites=true&w=majority&appName=ClusterPlazoleta
+      uri: mongodb://localhost:27017/trazabilidad
 
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
 appDescription: "Pragma Powerup"
 appVersion: "1.0.0"
