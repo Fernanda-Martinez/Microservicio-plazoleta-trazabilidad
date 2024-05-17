@@ -1,7 +1,9 @@
 package com.pragma.powerup.infrastructure.input.rest;
 
 import com.pragma.powerup.application.dto.request.CrearTrazaRequestDto;
+import com.pragma.powerup.application.dto.request.GetTrazaRequestDto;
 import com.pragma.powerup.application.dto.response.CrearTrazaResponseDto;
+import com.pragma.powerup.application.dto.response.GetTrazaResponseDto;
 import com.pragma.powerup.application.handler.ITrazaHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,5 +32,16 @@ public class TrazaRestController {
     public ResponseEntity<CrearTrazaResponseDto> crear(@RequestBody CrearTrazaRequestDto requestDto) {
         CrearTrazaResponseDto response = trazaHandler.crear(requestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Obtiene la traza de un pedido")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Traza obtenida", content = @Content),
+            @ApiResponse(responseCode = "409", description = "La traza no pudo obtenerse", content = @Content)
+    })
+    @PostMapping("/obtener")
+    public ResponseEntity<GetTrazaResponseDto> obtener(@RequestBody GetTrazaRequestDto requestDto) {
+        GetTrazaResponseDto response = trazaHandler.obtener(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
