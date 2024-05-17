@@ -2,18 +2,21 @@ package com.pragma.powerup.infrastructure.out.jpa.adapter;
 
 import com.pragma.powerup.application.dto.request.CrearTrazaRequestDto;
 import com.pragma.powerup.domain.model.Traza;
+import com.pragma.powerup.domain.spi.IGetTrazaPersistencePort;
 import com.pragma.powerup.domain.spi.ITrazaPersistencePort;
 import com.pragma.powerup.infrastructure.out.jpa.entity.TrazaEntity;
 import com.pragma.powerup.infrastructure.out.jpa.mapper.ITrazaEntityMapper;
 import com.pragma.powerup.infrastructure.out.jpa.repository.ITrazabilidadRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 @RequiredArgsConstructor
-public class TrazaJpaAdapter implements ITrazaPersistencePort {
+public class TrazaJpaAdapter implements ITrazaPersistencePort, IGetTrazaPersistencePort {
 
     private final ITrazabilidadRepository trazabilidadRepository;
     private final ITrazaEntityMapper trazaEntityMapper;
@@ -52,7 +55,26 @@ public class TrazaJpaAdapter implements ITrazaPersistencePort {
 
         TrazaEntity response = trazabilidadRepository.save(nuevaTraza);
 
-        Traza res = trazaEntityMapper.toModel(response);
+
+        return trazaEntityMapper.toModel(response);
+    }
+
+
+    @Override
+    public List<Traza> getTraza(int idPedido) {
+
+        List<TrazaEntity> response = trazabilidadRepository.findByIdPedido(idPedido);
+
+        if(response.isEmpty()){
+            return Collections.emptyList();
+        }
+
+        List<Traza> res = new ArrayList<>();
+
+        for(TrazaEntity entity: response){
+            Traza traza = trazaEntityMapper.toModel(entity);
+            res.add(traza);
+        }
 
         return res;
     }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ITrazabilidadRepository extends MongoRepository<TrazaEntity, Integer> {
     List<TrazaEntity> findByIdPedido(int idPedido);
+    List<TrazaEntity> findByIdEmpleado(int idEmpleado);
 }
