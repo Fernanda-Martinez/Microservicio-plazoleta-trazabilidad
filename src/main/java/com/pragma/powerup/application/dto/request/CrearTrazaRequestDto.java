@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CrearTrazaRequestDto {
     int idEmpleado;
-    int idPepido;
+    int idPedido;
     String idCliente;
     String correoCliente;
     String correoEmpleado;

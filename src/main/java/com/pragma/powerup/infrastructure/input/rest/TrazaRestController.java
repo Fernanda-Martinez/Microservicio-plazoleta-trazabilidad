@@ -12,10 +12,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/traza")
@@ -28,8 +26,23 @@ public class TrazaRestController {
             @ApiResponse(responseCode = "201", description = "Traza creada", content = @Content),
             @ApiResponse(responseCode = "409", description = "La traza no pudo crearse", content = @Content)
     })
-    @PostMapping("/crear")
-    public ResponseEntity<CrearTrazaResponseDto> crear(@RequestBody CrearTrazaRequestDto requestDto) {
+
+    @GetMapping("/crear")
+    public ResponseEntity<CrearTrazaResponseDto> crear(@RequestParam("idEmpleado") int idEmpleado,
+                                                       @RequestParam("idPedido") int idPedido,
+                                                       @RequestParam("idCliente") int idCliente,
+                                                       @RequestParam("correoEmpleado") String correoEmpleado,
+                                                       @RequestParam("correoCliente") String correoCliente,
+                                                       @RequestParam("nuevoEstado") String nuevoEstado) {
+
+        CrearTrazaRequestDto requestDto = new CrearTrazaRequestDto();
+        requestDto.setIdEmpleado(idEmpleado);
+        requestDto.setIdPedido(idPedido);
+        requestDto.setIdCliente(String.valueOf(idCliente));
+        requestDto.setCorreoEmpleado(correoEmpleado);
+        requestDto.setCorreoCliente(correoCliente);
+        requestDto.setNuevoEstado(nuevoEstado);
+
         CrearTrazaResponseDto response = trazaHandler.crear(requestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -39,6 +52,8 @@ public class TrazaRestController {
             @ApiResponse(responseCode = "201", description = "Traza obtenida", content = @Content),
             @ApiResponse(responseCode = "409", description = "La traza no pudo obtenerse", content = @Content)
     })
+
+    @PreAuthorize("hasRole('ROLE_cliente')")
     @PostMapping("/obtener")
     public ResponseEntity<GetTrazaResponseDto> obtener(@RequestBody GetTrazaRequestDto requestDto) {
         GetTrazaResponseDto response = trazaHandler.obtener(requestDto);

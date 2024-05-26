@@ -27,7 +27,7 @@ public class TrazaJpaAdapter implements ITrazaPersistencePort, IGetTrazaPersiste
 
         TrazaEntity nuevaTraza = new TrazaEntity();
         nuevaTraza.setId(random.nextInt());
-        nuevaTraza.setIdPedido(requestDto.getIdPepido());
+        nuevaTraza.setIdPedido(requestDto.getIdPedido());
         nuevaTraza.setIdCliente(requestDto.getIdCliente());
         nuevaTraza.setIdEmpleado(requestDto.getIdEmpleado());
         nuevaTraza.setCorreoCliente(requestDto.getCorreoCliente());
@@ -35,7 +35,7 @@ public class TrazaJpaAdapter implements ITrazaPersistencePort, IGetTrazaPersiste
         nuevaTraza.setEstadoNuevo(requestDto.getNuevoEstado());
         nuevaTraza.setFecha(new Date());
 
-        List<TrazaEntity> traza = trazabilidadRepository.findByIdPedido(requestDto.getIdPepido());
+        List<TrazaEntity> traza = trazabilidadRepository.findByIdPedido(requestDto.getIdPedido());
         TrazaEntity objetoMasReciente = null;
         Date fechaMasReciente = null;
 

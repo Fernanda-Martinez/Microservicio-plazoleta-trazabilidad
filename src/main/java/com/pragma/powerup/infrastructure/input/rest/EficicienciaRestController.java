@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,6 +27,7 @@ public class EficicienciaRestController {
             @ApiResponse(responseCode = "201", description = "Eficiencia obtenida", content = @Content),
             @ApiResponse(responseCode = "409", description = "Pedido no existe", content = @Content)
     })
+    @PreAuthorize("hasRole('ROLE_propietario')")
     @GetMapping("/obtener")
     public ResponseEntity<GetEficienteResponseDto> obtener(@RequestParam int idPedido) {
         GetEficienteResponseDto response = eficienciaHandler.obtener(idPedido);
@@ -37,6 +39,7 @@ public class EficicienciaRestController {
             @ApiResponse(responseCode = "201", description = "Ranking obtenido", content = @Content),
             @ApiResponse(responseCode = "409", description = "Empleado no existe o no posee pedidos realizados", content = @Content)
     })
+    @PreAuthorize("hasRole('ROLE_propietario')")
     @GetMapping("/rankear")
     public ResponseEntity<RankingResponseDto> rankear(@RequestParam int idEmpleado) {
         RankingResponseDto response = rankingHandler.rankear(idEmpleado);
