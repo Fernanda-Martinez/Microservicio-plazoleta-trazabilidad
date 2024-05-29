@@ -36,6 +36,8 @@ dependencies {
 	developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	testImplementation 'junit:junit:4.13.2'
 
 	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
